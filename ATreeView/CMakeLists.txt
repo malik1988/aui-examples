@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-aui_executable(aui.example.tree
+aui_executable(aui.example.atree
     src/main.cpp
 )
-aui_link(aui.example.tree PRIVATE aui::views)
+aui_link(aui.example.atree PRIVATE aui::views)

@@ -18,3 +18,4 @@ endif()
 find_package(aui REQUIRED)
 
 add_subdirectory(ATreeView)
+add_subdirectory(TreeView)
