@@ -116,6 +116,14 @@ public:
                           addTopic(tp);
                       }
                   } },
+            Button {
+              .content = Label { "Test Add 1000" },
+              .onClick =
+                  [this] {
+                      for (auto i = 0; i < 1000; i++) {
+                          addTopic("{}/{}"_format(i + 1, i + 1));
+                      }
+                  } },
 
             AScrollArea::Builder()
                 .withContents(contentTree(topics_))
