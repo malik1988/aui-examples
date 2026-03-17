@@ -30,6 +30,7 @@
 #include <AUI/View/AForEachUI.h>
 #include <AUI/View/ACheckBox.h>
 #include <AUI/View/ATextField.h>
+#include <AUI/View/AView.h>
 
 using namespace declarative;
 
@@ -57,6 +58,12 @@ struct Node {
     }
 };
 static _<AView> contentTree(_<AProperty<AVector<_<Node>>>> nodes) {
+    // check empty or crash happens,
+    //  but this cause another issue that nodes has one or more at first or no views will create and won't update views
+    //  even nodes added later.
+    if (nodes->value().empty())
+        return nullptr;
+
     return AUI_DECLARATIVE_FOR(i, *(nodes.value()), AVerticalLayout) {
         return Horizontal { Label {
           AUI_REACT(i->treeExpanded ? "v" : ">"),
@@ -92,7 +99,8 @@ static _<AView> contentTree(_<AProperty<AVector<_<Node>>>> nodes) {
 class TreeViewWindow : public AWindow {
 public:
     TreeViewWindow() : AWindow("AUI - ATreeView Test", 200_dp, 100_dp) {
-        addTopic("wf/1/2");
+        // nodes has one or more at first or no views will create and won't update views even nodes added later.
+        addTopic("a very tricky placeholder, prevents the view from not updating");
 
         setContents(Centered {
           Vertical::Expanding {
